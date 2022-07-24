@@ -30,11 +30,17 @@ func TestFullFlow(t *testing.T) {
 	p1 := New(btcTx)
 	p2 := New(btcTx)
 
-	paillierPub, encD := p1.InitializeSign()
+	paillierPub, encD, err := p1.InitializeSign()
+	if err != nil {
+		t.FailNow()
+	}
 
 	a, encB, R := p2.HandleInitializeSign(paillierPub, encD)
 
-	sig := p1.FinalizedSign(a, encB, R)
+	sig, err := p1.FinalizedSign(a, encB, R)
+	if err != nil {
+		t.FailNow()
+	}
 
 	jointPK := p1.GetKey().PublicKey.ScalarMul(p2.GetKey().Key)
 
@@ -50,11 +56,17 @@ func TestBadKeys(t *testing.T) {
 	p1 := New(btcTx)
 	p2 := New(btcTx)
 
-	paillierPub, encD := p1.InitializeSign()
+	paillierPub, encD, err := p1.InitializeSign()
+	if err != nil {
+		t.FailNow()
+	}
 
 	a, encB, R := p2.HandleInitializeSign(paillierPub, encD)
 
-	sig := p1.FinalizedSign(a, encB, R)
+	sig, err := p1.FinalizedSign(a, encB, R)
+	if err != nil {
+		t.FailNow()
+	}
 
 	p1Key := p1.GetKey()
 	p2Key := p2.GetKey()
@@ -74,13 +86,17 @@ func TestBadRandom(t *testing.T) {
 	p1 := New(btcTx)
 	p2 := New(btcTx)
 
-	paillierPub, encD := p1.InitializeSign()
-
+	paillierPub, encD, err := p1.InitializeSign()
+	if err != nil {
+		t.FailNow()
+	}
 	a, encB, R := p2.HandleInitializeSign(paillierPub, encD)
 
 	diffR := R.ScalarMul(new(big.Int).SetInt64(2))
-	sig := p1.FinalizedSign(a, encB, diffR)
-
+	sig, err := p1.FinalizedSign(a, encB, diffR)
+	if err != nil {
+		t.FailNow()
+	}
 	p1Key := p1.GetKey()
 	p2Key := p2.GetKey()
 
