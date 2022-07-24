@@ -8,8 +8,6 @@ import (
 	"testing"
 )
 
-// https://duo.com/labs/tech-notes/2p-ecdsa-explained
-
 func TestNew(t *testing.T) {
 	btcTx := []uint8("transfer 3 btc to address 1bc3e4353nej")
 
