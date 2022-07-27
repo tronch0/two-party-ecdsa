@@ -11,4 +11,4 @@ $ go run main.go
 3. [ ] Implement party as a separate process and communicate over libp2p
 
 ## A word of caution
-This library was created primarily for education purposes, with future application for a course project. You should **NOT USE THIS CODE IN PRODUCTION SYSTEMS**. 
+This library was created primarily for education purposes. You should **NOT USE THIS CODE IN PRODUCTION SYSTEMS**. 
